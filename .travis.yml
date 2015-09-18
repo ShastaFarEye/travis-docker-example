@@ -9,6 +9,7 @@ before_install:
 - cd ${TRAVIS_BUIL_DIR}
 - git clone https://github.com/mazaclub/encompass
 - cd encompass/contrib/encompass-release
+- git checkout release/v0.6.0
 - ./build.sh 0.6.0 local
 
 script:
