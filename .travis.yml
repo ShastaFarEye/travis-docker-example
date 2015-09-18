@@ -9,8 +9,8 @@ before_install:
 - docker pull ogrisel/python-winbuilder
 - cd ${TRAVIS_BUIL_DIR}
 - git clone https://github.com/mazaclub/encompass
-- git checkout release/v0.6.0
 - cd encompass/contrib/mazaclub-release
+- git checkout release/v0.6.0
 - ./buildLinux 0.6.0 local
 
 script:
