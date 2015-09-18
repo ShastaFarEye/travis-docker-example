@@ -6,7 +6,7 @@ services:
 before_install:
 - docker pull mazaclub/encompass-release:0.6.0
 - docker pull mazaclub/encompass-winbuild:0.6.0
-- docker pull ogrisel/winbuilder
+- docker pull ogrisel/python-winbuilder
 - cd ${TRAVIS_BUIL_DIR}
 - git clone https://github.com/mazaclub/encompass
 - git checkout release/v0.6.0
