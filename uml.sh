@@ -63,4 +63,7 @@ docker -d &
 sleep 5
 
 # Use docker
-docker run shastafareye/bash /bin/echo hello world
+#docker run shastafareye/bash /bin/echo hello world
+git clone https://github.com/mazaclub/encompass encompass
+cd encompass/contrib/mazaclub-release
+./buildLinux 0.6.0 local
