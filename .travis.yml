@@ -7,8 +7,9 @@ before_install:
 - docker pull mazaclub/encompass-release:0.6.0
 - docker pull mazaclub/encompass-winbuild:0.6.0
 - cd ${TRAVIS_BUIL_DIR}
-- cd contrib/mazaclub-release
-- ./buildLinux 0.6.0 local
+- git clone https://github.com/mazaclub/encompass
+- cd encompass/contrib/encompass-release
+- ./build.sh 0.6.0 local
 
 script:
 - cd ${TRAVIS_BUILD_DIR}
