@@ -7,9 +7,14 @@ before_install:
 - cd ${TRAVIS_BUIL_DIR}
 - git clone https://github.com/guruvan/gitian-docker
 - cd gitian-docker
+- echo "GD_BUILD_URL=https://github.com/mazacoin/mazacoin-new" > maza-10.2.env
+- echo "GD_BUILD_COMMIT=10.2" >> maza-10.2.env
+- echo "GD_BUILD_COIN=maza" >> maza-10.2.env
+- echo "GD_HOST_OSXSDK=MacOSX10.9.sdk.tar.gz" >> maza-10.2.env
+- echo "GD_BUILD_OSXSDK=MacOSX10.9.sdk.tar.gz" >> maza-10.2.env
 - touch MacOSXSDK.tar.gz
 - sed 's/\/Users\/guruvan\/DEVEL\/OSX_SDK\///g' maza-10.2.env > maza.env
-- ./build.sh maza.env
+- ./build.sh maza-10.2.env
 
 script:
 - cd ${TRAVIS_BUILD_DIR}
