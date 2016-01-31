@@ -4,15 +4,12 @@ services:
   - docker
 
 before_install:
-- docker pull mazaclub/encompass-release:0.6.0
-- docker pull mazaclub/encompass-winbuild:0.6.0
-- docker pull ogrisel/python-winbuilder
 - cd ${TRAVIS_BUIL_DIR}
-- git clone https://github.com/mazaclub/encompass
-- cd encompass
-- git checkout release/v0.6.0
-- cd contrib/mazaclub-release
-- ./buildLinux 0.6.0 local
+- git clone https://github.com/gitian-docker
+- cd gitian-docker
+- touch MacOSXSDK.tar.gz
+- sed 's/\/Users\/guruvan\/DEVEL\/OSX_SDK\///g' maza-10.2.env > maza.env
+- ./build.sh maza.env
 
 script:
 - cd ${TRAVIS_BUILD_DIR}
