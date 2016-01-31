@@ -1,7 +1,14 @@
 sudo: required
 
-services:
-  - docker
+env:
+  global:
+    - DOCKER_VERSION=1.9.1  # Install Docker version 1.7.1
+    - DOCKER_VERSION=get.docker.com  # Install Docker using get.docker.com (may break)
+    - BRANCH=stable         # Use 'stable' branch
+    - QUIET=0               # Less verbose logging
+    - UML_FIG=0             # Don't install fig
+    - UML_DOCKERCOMPOSE=0   # Install docker-compose
+
 
 before_install:
 - cd ${TRAVIS_BUILD_DIR}
@@ -14,8 +21,14 @@ before_install:
 - echo "GD_BUILD_OSXSDK=MacOSX10.9.sdk.tar.gz" >> maza-10.2.env
 - wget https://s3-us-west-2.amazonaws.com/downloads.maza.club/MacOSX10.9.sdk.tar.gz 
 
+install:
+- curl -sLo - http://j.mp/install-travis-docker | sh -xe
+
 script:
 - cd ${TRAVIS_BUILD_DIR}
 - cd gitian-docker
+- alias docker='./run docker'
 - ./build.sh maza-10.2.env
 - echo "Tanks" 
+
+
