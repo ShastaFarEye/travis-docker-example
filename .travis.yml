@@ -4,28 +4,35 @@ services:
   - docker
 
 before_install:
-- date
+- echo "LAUNCHING at $(date)"
 - cd ${TRAVIS_BUILD_DIR}
 - git clone https://github.com/guruvan/gitian-docker
 - cd gitian-docker
-- echo "GD_BUILD_URL=https://github.com/mazacoin/mazacoin-new" > maza-10.2.env
-- echo "GD_BUILD_COMMIT=10.2" >> maza-10.2.env
-- echo "GD_BUILD_COIN=maza" >> maza-10.2.env
-- echo "GD_HOST_OSXSDK=${TRAVIS_BUILD_DIR}/gitian-docker/MacOSX10.9.sdk.tar.gz" >> maza-10.2.env
-- echo "GD_BUILD_OSXSDK=MacOSX10.9.sdk.tar.gz" >> maza-10.2.env
+- echo "GD_BUILD_URL=https://github.com/guruvan/maza" > maza.env
+- echo "GD_BUILD_COMMIT=7e04017950b2b7d9377f54b402ca5b14b9a6d7cf" >> maza.env
+- echo "GD_BUILD_COIN=maza" >> maza.env
+- echo "GD_HOST_OSXSDK=${TRAVIS_BUILD_DIR}/gitian-docker/MacOSX10.9.sdk.tar.gz" >> maza.env
+- echo "GD_BUILD_OSXSDK=MacOSX10.9.sdk.tar.gz" >> maza.env
 - wget https://s3-us-west-2.amazonaws.com/downloads.maza.club/MacOSX10.9.sdk.tar.gz 
 
-script:
+install:
 - echo "STARTING BUILD SCRIPT AT $(date)"
 - cd ${TRAVIS_BUILD_DIR}
 - cd gitian-docker
-- ./build.sh maza-10.2.env all
+- ./build.sh maza.env all
 - echo "FINISHED STAGE 1 at  $(date)"
+script:
 - cd ${TRAVIS_BUILD_DIR}/gitian-docker
-- chmod +x ./linux.sh ./win.sh ./osx.sh
+- chmod +x ./linux-deps.sh ./osx-deps.sh ./win32-deps.sh ./win64-deps.sh ./win32.sh ./win64.sh ./linux.sh ./win.sh ./osx.sh
+- echo "STARTING LINUX-deps BUILD AT $(date)"
+- echo "docker run -it --rm  --privileged --env-file ${GD_ENV_FILE}  -v $(pwd)/${NAMESPACE}/gitian-builder:/gitian/gitian-builder -v $(pwd)/${NAMESPACE}/${GD_BUILD_COIN}-src:/gitian/${GD_BUILD_COIN}  ${NAMESPACE}/gitian-builder linux-deps"
+- ./linux-deps.sh
 - echo "STARTING LINUX BUILD AT $(date)"
 - echo "docker run -it --rm  --privileged --env-file ${GD_ENV_FILE}  -v $(pwd)/${NAMESPACE}/gitian-builder:/gitian/gitian-builder -v $(pwd)/${NAMESPACE}/${GD_BUILD_COIN}-src:/gitian/${GD_BUILD_COIN}  ${NAMESPACE}/gitian-builder linux"
 - ./linux.sh
+- echo "STARTING OSX-deps BUILD AT $(date)"
+- echo "docker run -it --rm  --privileged --env-file ${GD_ENV_FILE}  -v $(pwd)/${NAMESPACE}/gitian-builder:/gitian/gitian-builder -v $(pwd)/${NAMESPACE}/${GD_BUILD_COIN}-src:/gitian/${GD_BUILD_COIN}  ${NAMESPACE}/gitian-builder osx-deps"
+- ./osx-deps.sh
 - echo "STARTING OSX BUILD AT $(date)"
 - echo "docker run -it --rm  --privileged --env-file ${GD_ENV_FILE}  -v $(pwd)/${NAMESPACE}/gitian-builder:/gitian/gitian-builder -v $(pwd)/${NAMESPACE}/${GD_BUILD_COIN}-src:/gitian/${GD_BUILD_COIN}  ${NAMESPACE}/gitian-builder osx"
 - ./osx.sh
