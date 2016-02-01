@@ -16,9 +16,13 @@ before_install:
 - wget https://s3-us-west-2.amazonaws.com/downloads.maza.club/MacOSX10.9.sdk.tar.gz 
 env:
 - GD_OS_PACKAGE=linux
+- GD_OS_PACKAGE=linux-deps
 - GD_OS_PACKAGE=osx
+- GD_OS_PACKAGE=osx-deps
 - GD_OS_PACKAGE=win32
+- GD_OS_PACKAGE=win32-deps
 - GD_OS_PACKAGE=win64
+- GD_OS_PACKAGE=win64-deps
 install:
 - echo "STARTING BUILD SCRIPT AT $(date)"
 - cd ${TRAVIS_BUILD_DIR}
@@ -28,7 +32,6 @@ install:
 script:
 - cd ${TRAVIS_BUILD_DIR}/gitian-docker
 - chmod +x ./linux-deps.sh ./osx-deps.sh ./win32-deps.sh ./win64-deps.sh ./win32.sh ./win64.sh ./linux.sh ./win.sh ./osx.sh
-- ./${GD_OS_PACKAGE}-deps.sh
 - ./${GD_OS_PACKAGE}.sh
 - echo "You are done"
 
