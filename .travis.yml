@@ -17,6 +17,10 @@ before_install:
 script:
 - cd ${TRAVIS_BUILD_DIR}
 - cd gitian-docker
-- ./build.sh maza-10.2.env linux
-- ./build.sh maza-10.2.env osx
-- echo "Tanks" 
+- ./build.sh maza-10.2.env all
+- cd ${TRAVIS_BUILD_DIR}/gitian-docker
+- docker run -it --rm  --privileged --env-file ${GD_ENV_FILE}  -v $(pwd)/${NAMESPACE}/gitian-builder:/gitian/gitian-builder -v $(pwd)/${NAMESPACE}/${GD_BUILD_COIN}-src:/gitian/${GD_BUILD_COIN}  ${NAMESPACE}/gitian-builder linux
+- docker run -it --rm  --privileged --env-file ${GD_ENV_FILE}  -v $(pwd)/${NAMESPACE}/gitian-builder:/gitian/gitian-builder -v $(pwd)/${NAMESPACE}/${GD_BUILD_COIN}-src:/gitian/${GD_BUILD_COIN}  ${NAMESPACE}/gitian-builder osx
+- docker run -it --rm  --privileged --env-file ${GD_ENV_FILE}  -v $(pwd)/${NAMESPACE}/gitian-builder:/gitian/gitian-builder -v $(pwd)/${NAMESPACE}/${GD_BUILD_COIN}-src:/gitian/${GD_BUILD_COIN}  ${NAMESPACE}/gitian-builder win
+- echo "You are done"
+
