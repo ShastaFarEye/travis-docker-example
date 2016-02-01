@@ -17,5 +17,6 @@ before_install:
 script:
 - cd ${TRAVIS_BUILD_DIR}
 - cd gitian-docker
-- ./build.sh maza-10.2.env
+- ./build.sh maza-10.2.env linux
+- ./build.sh maza-10.2.env osx
 - echo "Tanks" 
