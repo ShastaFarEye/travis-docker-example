@@ -19,7 +19,7 @@ before_install:
 - git fetch origin
 - git checkout -t origin/master
 - echo "GD_BUILD_URL=https://github.com/guruvan/maza" > maza.env
-- echo "GD_BUILD_COMMIT=7e04017950b2b7d9377f54b402ca5b14b9a6d7cf" >> maza.env
+- echo "GD_BUILD_COMMIT=da3675a56fa3ce7b494c5ec85f395331413b38c6" >> maza.env
 - echo "GD_BUILD_COIN=maza" >> maza.env
 - echo "GD_HOST_OSXSDK=${TRAVIS_BUILD_DIR}/gitian-docker/MacOSX10.9.sdk.tar.gz" >> maza.env
 - echo "GD_BUILD_OSXSDK=MacOSX10.9.sdk.tar.gz" >> maza.env
