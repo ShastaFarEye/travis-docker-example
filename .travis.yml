@@ -38,7 +38,7 @@ install:
 - echo "FINISHED STAGE 1 at  $(date)"
 script:
 - cd ${TRAVIS_BUILD_DIR}/gitian-docker
-- chmod +x ./linux-deps.sh ./osx-deps.sh ./win32-deps.sh ./win64-deps.sh ./win32.sh ./win64.sh ./linux.sh ./win.sh ./osx.sh
+- chmod +x ./linux-deps.sh ./osx-deps.sh ./win32-deps.sh ./win64-deps.sh ./win32.sh ./win64.sh ./linux.sh ./osx.sh
 - ./${GD_OS_PACKAGE}-deps.sh
 - ./${GD_OS_PACKAGE}.sh
 - echo "You are done"
