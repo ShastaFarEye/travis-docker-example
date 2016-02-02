@@ -6,8 +6,8 @@ services:
 cache:
   apt: true
   directories:
-  - ${TRAVIS_BUILD_DIR}/gitian-docker/gitian-builder/cache
-  - ${TRAVIS_BUILD_DIR}/gitian-docker/gitian-builder/inputs
+  - ${TRAVIS_BUILD_DIR}/gitian-docker/${USER}/gitian-builder/cache
+  - ${TRAVIS_BUILD_DIR}/gitian-docker/${USER}/gitian-builder/inputs
 before_install:
 - echo "LAUNCHING at $(date)"
 - cd ${TRAVIS_BUILD_DIR}
