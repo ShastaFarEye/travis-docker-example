@@ -41,5 +41,5 @@ script:
 - chmod +x ./linux-deps.sh ./osx-deps.sh ./win32-deps.sh ./win64-deps.sh ./win32.sh ./win64.sh ./linux.sh ./osx.sh
 - ./${GD_OS_PACKAGE}-deps.sh
 - ./${GD_OS_PACKAGE}.sh
-- echo "You are done"
+- echo "You are done Thanks"
 
