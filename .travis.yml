@@ -15,6 +15,7 @@ env:
     - GD_BUILD_COIN=maza
     - GD_HOST_OSXSDK=${TRAVIS_BUILD_DIR}/gitian-docker/MacOSX10.9.sdk.tar.gz
     - GD_BUILD_OSXSDK=MacOSX10.9.sdk.tar.gz
+    - GD_ENV_FILE=${GD_BUILD_COIN}.env
     - NAMESPACE=${USER}
   matrix:
     - GD_OS_PACKAGE=linux
@@ -31,11 +32,11 @@ before_install:
 - git remote add origin https://github.com/guruvan/gitian-docker
 - git fetch origin
 - git checkout -t origin/master
-- echo "GD_BUILD_URL=https://github.com/guruvan/maza" > maza.env
-- echo "GD_BUILD_COMMIT=da3675a56fa3ce7b494c5ec85f395331413b38c6" >> maza.env
-- echo "GD_BUILD_COIN=maza" >> maza.env
-- echo "GD_HOST_OSXSDK=${TRAVIS_BUILD_DIR}/gitian-docker/MacOSX10.9.sdk.tar.gz" >> maza.env
-- echo "GD_BUILD_OSXSDK=MacOSX10.9.sdk.tar.gz" >> maza.env
+- echo "GD_BUILD_URL=https://github.com/guruvan/maza" > ${GD_ENV_FILE}
+- echo "GD_BUILD_COMMIT=da3675a56fa3ce7b494c5ec85f395331413b38c6" >> ${GD_ENV_FILE}
+- echo "GD_BUILD_COIN=maza" >> ${GD_ENV_FILE}
+- echo "GD_HOST_OSXSDK=${TRAVIS_BUILD_DIR}/gitian-docker/MacOSX10.9.sdk.tar.gz" >> ${GD_ENV_FILE}
+- echo "GD_BUILD_OSXSDK=MacOSX10.9.sdk.tar.gz" >> ${GD_ENV_FILE}
 - wget https://s3-us-west-2.amazonaws.com/downloads.maza.club/MacOSX10.9.sdk.tar.gz 
 install:
 - echo "STARTING BUILD SCRIPT AT $(date)"
