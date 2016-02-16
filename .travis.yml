@@ -9,11 +9,13 @@ cache:
     - ${TRAVIS_BUILD_DIR}/gitian-docker/${USER}/gitian-builder/cache
     - ${TRAVIS_BUILD_DIR}/gitian-docker/${USER}/gitian-builder/inputs
 env:
-- GD_BUILD_URL=https://github.com/guruvan/maza
-- GD_BUILD_COMMIT=da3675a56fa3ce7b494c5ec85f395331413b38c6
-- GD_BUILD_COIN=maza
-- GD_HOST_OSXSDK=${TRAVIS_BUILD_DIR}/gitian-docker/MacOSX10.9.sdk.tar.gz
-- GD_BUILD_OSXSDK=MacOSX10.9.sdk.tar.gz
+  global:
+    - GD_BUILD_URL=https://github.com/guruvan/maza
+    - GD_BUILD_COMMIT=da3675a56fa3ce7b494c5ec85f395331413b38c6
+    - GD_BUILD_COIN=maza
+    - GD_HOST_OSXSDK=${TRAVIS_BUILD_DIR}/gitian-docker/MacOSX10.9.sdk.tar.gz
+    - GD_BUILD_OSXSDK=MacOSX10.9.sdk.tar.gz
+    - NAMESPACE=${USER}
   matrix:
     - GD_OS_PACKAGE=linux
     - GD_OS_PACKAGE=osx
@@ -42,7 +44,6 @@ install:
 - docker pull maza/gitian-builder  && docker tag -f maza/gitian-builder ${USER}/gitian-builder
 - echo "FINISHED STAGE 1 at  $(date)"
 script:
-- export NAMESPACE=${USER}
 - cd ${TRAVIS_BUILD_DIR}/gitian-docker
 - docker run -it --rm  --privileged --env-file ${GD_ENV_FILE}  -v $(pwd)/${NAMESPACE}/gitian-builder:/gitian/gitian-builder -v $(pwd)/${NAMESPACE}/${GD_BUILD_COIN}-src:/gitian/${GD_BUILD_COIN}  ${NAMESPACE}/gitian-builder linux-deps
 - docker run -it --rm  --privileged --env-file ${GD_ENV_FILE}  -v $(pwd)/${NAMESPACE}/gitian-builder:/gitian/gitian-builder -v $(pwd)/${NAMESPACE}/${GD_BUILD_COIN}-src:/gitian/${GD_BUILD_COIN}  ${NAMESPACE}/gitian-builder osx-deps
