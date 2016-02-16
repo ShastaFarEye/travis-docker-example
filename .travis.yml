@@ -42,6 +42,7 @@ install:
 - cd ${TRAVIS_BUILD_DIR}
 - cd gitian-docker
 - docker pull maza/gitian-builder  && docker tag -f maza/gitian-builder ${USER}/gitian-builder
+- mkdir -pv ${TRAVIS_BUILD_DIR}/gitian-docker/${NAMESPACE}/gitian-builder
 - echo "FINISHED STAGE 1 at  $(date)"
 script:
 - cd ${TRAVIS_BUILD_DIR}/gitian-docker
