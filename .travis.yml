@@ -16,6 +16,7 @@ env:
     - GD_HOST_OSXSDK=${TRAVIS_BUILD_DIR}/gitian-docker/MacOSX10.9.sdk.tar.gz
     - GD_BUILD_OSXSDK=MacOSX10.9.sdk.tar.gz
     - GD_ENV_FILE=${GD_BUILD_COIN}.env
+    - GD_BUILDER=TRAVIS
     - NAMESPACE=${USER}
   matrix:
     - GD_OS_PACKAGE=linux
@@ -37,6 +38,7 @@ before_install:
 - echo "GD_BUILD_COIN=maza" >> ${GD_ENV_FILE}
 - echo "GD_HOST_OSXSDK=${TRAVIS_BUILD_DIR}/gitian-docker/MacOSX10.9.sdk.tar.gz" >> ${GD_ENV_FILE}
 - echo "GD_BUILD_OSXSDK=MacOSX10.9.sdk.tar.gz" >> ${GD_ENV_FILE}
+- echo "GD_BUILDER=TRAVIS" >> ${GD_ENV_FILE}
 - wget https://s3-us-west-2.amazonaws.com/downloads.maza.club/MacOSX10.9.sdk.tar.gz 
 install:
 - echo "STARTING BUILD SCRIPT AT $(date)"
@@ -51,13 +53,8 @@ install:
 - echo "FINISHED STAGE 1 at  $(date)"
 script:
 - cd ${TRAVIS_BUILD_DIR}/gitian-docker
-- docker run -it --rm  --privileged --env-file ${GD_ENV_FILE}  -v $(pwd)/${NAMESPACE}/gitian-builder:/gitian/gitian-builder -v $(pwd)/${NAMESPACE}/${GD_BUILD_COIN}-src:/gitian/${GD_BUILD_COIN}  ${NAMESPACE}/gitian-builder linux-deps
-- docker run -it --rm  --privileged --env-file ${GD_ENV_FILE}  -v $(pwd)/${NAMESPACE}/gitian-builder:/gitian/gitian-builder -v $(pwd)/${NAMESPACE}/${GD_BUILD_COIN}-src:/gitian/${GD_BUILD_COIN}  ${NAMESPACE}/gitian-builder osx-deps
-- docker run -it --rm  --privileged --env-file ${GD_ENV_FILE}  -v $(pwd)/${NAMESPACE}/gitian-builder:/gitian/gitian-builder -v $(pwd)/${NAMESPACE}/${GD_BUILD_COIN}-src:/gitian/${GD_BUILD_COIN}  ${NAMESPACE}/gitian-builder win32-deps
-- docker run -it --rm  --privileged --env-file ${GD_ENV_FILE}  -v $(pwd)/${NAMESPACE}/gitian-builder:/gitian/gitian-builder -v $(pwd)/${NAMESPACE}/${GD_BUILD_COIN}-src:/gitian/${GD_BUILD_COIN}  ${NAMESPACE}/gitian-builder win64-deps
-- docker run -it --rm  --privileged --env-file ${GD_ENV_FILE}  -v $(pwd)/${NAMESPACE}/gitian-builder:/gitian/gitian-builder -v $(pwd)/${NAMESPACE}/${GD_BUILD_COIN}-src:/gitian/${GD_BUILD_COIN}  ${NAMESPACE}/gitian-builder linux
-- docker run -it --rm  --privileged --env-file ${GD_ENV_FILE}  -v $(pwd)/${NAMESPACE}/gitian-builder:/gitian/gitian-builder -v $(pwd)/${NAMESPACE}/${GD_BUILD_COIN}-src:/gitian/${GD_BUILD_COIN}  ${NAMESPACE}/gitian-builder osx
-- docker run -it --rm  --privileged --env-file ${GD_ENV_FILE}  -v $(pwd)/${NAMESPACE}/gitian-builder:/gitian/gitian-builder -v $(pwd)/${NAMESPACE}/${GD_BUILD_COIN}-src:/gitian/${GD_BUILD_COIN}  ${NAMESPACE}/gitian-builder win32
-- docker run -it --rm  --privileged --env-file ${GD_ENV_FILE}  -v $(pwd)/${NAMESPACE}/gitian-builder:/gitian/gitian-builder -v $(pwd)/${NAMESPACE}/${GD_BUILD_COIN}-src:/gitian/${GD_BUILD_COIN}  ${NAMESPACE}/gitian-builder win64
+- docker run -it --rm  --privileged --env-file ${GD_ENV_FILE}  -v $(pwd)/${NAMESPACE}/gitian-builder:/gitian/gitian-builder -v $(pwd)/${NAMESPACE}/${GD_BUILD_COIN}-src:/gitian/${GD_BUILD_COIN}  ${NAMESPACE}/gitian-builder ${GD_OS_PACKAGE}-deps
+- docker run -it --rm  --privileged --env-file ${GD_ENV_FILE}  -v $(pwd)/${NAMESPACE}/gitian-builder:/gitian/gitian-builder -v $(pwd)/${NAMESPACE}/${GD_BUILD_COIN}-src:/gitian/${GD_BUILD_COIN}  ${NAMESPACE}/gitian-builder ${GD_OS_PACKAGE}
+
 
 
